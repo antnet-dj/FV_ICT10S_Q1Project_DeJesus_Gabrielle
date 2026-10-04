@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simon Says Restaurant</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.3.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2025.3.1/core.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f3eee6;
+            color: #30251f;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            background-color: #4a2c22;
+            color: #fff8ed;
+            padding: 35px 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 38px;
+            letter-spacing: 2px;
+        }
+
+        .header h3 {
+            margin: 8px 0;
+            color: #e8c39e;
+        }
+
+        .header p {
+            margin-top: 18px;
+            font-size: 15px;
+        }
+
+        .menu {
+            background-color: #fffaf2;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .menu-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d8c3ad;
+            padding-bottom: 10px;
+        }
+
+        .food-item {
+            display: block;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f7f0e7;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s ease,
+                        background-color 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .food-item:hover {
+            transform: translateX(5px);
+            background-color: #eee1d1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .food-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #8b4a32;
+            margin-right: 12px;
+        }
+
+        .order-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background-color: #8b4a32;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            transition: transform 0.2s ease,
+                        background-color 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .order-button:hover {
+            background-color: #6f3826;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .order-button:active {
+            transform: translateY(1px);
+        }
+
+        .receipt-container {
+            margin-top: 25px;
+            background-color: #fffdf8;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+            position: relative;
+        }
+
+        .receipt-title {
+            text-align: center;
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #receipt {
+            font-family: monospace;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        #receipt b {
+            font-size: 18px;
+        }
+
+        .receipt-line {
+            border-top: 2px dashed #b8a99a;
+            margin: 15px 0;
+        }
+
+        .sku-button {
+            display: block;
+            margin-top: 12px;
+            padding: 15px;
+            border: 2px solid #8b4a32;
+            border-radius: 12px;
+            color: #8b4a32;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .sku-button:hover {
+            background-color: #8b4a32;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>SIMON SAYS</h1>
+        <h3>RESTAURANT</h3>
+
+        <p>
+            NOVA'S NUMBER 1!
+        </p>
+
+        <p>
+            Order your food here and check out your receipt!
+        </p>
+    </div>
+
+    <div class="menu">
+
+        <div class="menu-title">
+            🍽️ Today's Menu
+        </div>
+
+        <label class="food-item">
+            <input type="checkbox" id="grilledcheese" value="120">
+            🥪 Grilled Cheese
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="grilledmackerel" value="150">
+            🐟 Grilled Mackerel
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="cheeseomelette" value="130">
+            🍳 Cheese Omelette
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="veggieomelette" value="150">
+            🍅 Omelette w/ Veggies
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="chickennuggets" value="130">
+            🐤 Chicken Nuggets
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="crispytofu" value="120">
+            🍱 Crispy Tofu
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="friedchicken" value="150">
+            🍗 Fried Chicken
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="seafoodboil" value="250">
+            🦞 Seafood Boil
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="spicyramen" value="180">
+            🍜 Spicy Ramen
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="cupofrice" value="50">
+            🍚 Cup of Rice
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="fishandchips" value="180">
+            🐟 Fish and Chips
+        </label>
+
+        <label class="food-item">
+            <input type="checkbox" id="frenchfries" value="100">
+            🍟 French Fries
+        </label>
+
+        <button class="order-button" py-click="create_order">
+            Create Order
+        </button>
+
+        <a href="sku.html" class="sku-button">
+        Open SKU Generator
+        </a>
+    </div>
+
+    <div class="receipt-container">
+        <div class="receipt-title">
+            ---- RECEIPT ----
+        </div>
+        <div class="receipt-line"></div>
+        <p id="receipt"></p>
+    </div>
+</div>
+
+<script type="py" src="main.py"></script>
+
+</body>
+</html>
